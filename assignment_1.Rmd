@@ -1,0 +1,18 @@
+---
+title: "Assignment 1"
+author: "alix-bourree"
+date: "2 october 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercise 1
+## Exercise 2
+## Exercise 3
+## Exercise 4
+## Exercise 5
+## Exercise 6
+
