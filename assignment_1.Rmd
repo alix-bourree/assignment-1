@@ -49,7 +49,7 @@ ggplot2::ggplot(iris_groups23, ggplot2::aes(x=Sepal.Width)) +
   ggplot2::geom_histogram(colour="black", fill="lightgrey", binwidth=0.1) +
   ggplot2::facet_grid(Species ~ .)
 ```
-Question3a
+##Question3a
 Pour chaque bars des histogrammes, on a le nombre de fois où l'on a observé la largeur des sépales (en abscisse). Par exemple pour les virginicas, on voit que le plus souvent les sépales ont une largeur de 3cm (pour 12 sépales), et seulement 2,3 cm pour 1 sépale. 
 
 ```{r}
@@ -57,14 +57,14 @@ knitr::include_graphics("FullSizeRender.jpg.jpg")
 ```
 On ne peut pas vraiment derterminer si ce sous-ensemble est correct car il nous manque beaucoup de données, contrairement aux histogrammes du document.
 
-Question3b
+##Question3b
 On voit pour l'intervalle [3.0, 3.1[ (cm); que les versicolor on est à 8 cas et pour les virginicas 12, ce qui donne une somme de 20 (12+8), on voit sur l'histogramme des deux groupes regroupés que pour cette invervalle nous somme à 20 ce qui marche. Pour l'intervalle [2.0, 2.1[ on voit qu'on a 0 cas pour les versicolors et 1 pour les virginicas, dans l'histogramme qui concatène les deux, on voit que c'est à 1 (0+1). Pour l'intervalle [2.5, 2.6[ on voit qu'on a 3 pour les versicolors et 3 pour les virginicas, dans l'histogramme qui concatène les deux, on voit que c'est à 6 (3+3). Pour l'intervalle [2.9, 3.0[ on voit qu'on a 2 pour les versicolors et 7 pour les virginicas, dans l'histogramme qui concatène les deux, on voit que c'est à 9 (2+7).
 
-Question3c
+##Question3c
 L'hypothèse A signifie que si nous avons un échantillon disons "infini" (même si cela est impossible) de virginica et versicolor iris, les deux histogrammes ci-dessus seraient identiques, les variations des largeurs de sépales seraient donc les mêmes pour ces deux espèces.
 L'hypothèse B signifie que si nous avons un échantillon "infini", les deux histogrammes seraient différents, on remarquerait des variations de largeur de sépales selon l'éspèce.
 
-Question3d
+##Question3d
 Considérons que nous sommes en faveur de l'hypothèse A, les deux espèces sont les mêmes en terme de largeur de sépales. En effet, dans les deux premièrs histogrammes, nous voyons que la majorité des sépales ont une largeur entre 2.7 cm et 3cm, nous pouvons donc imaginer qu'avec un échantillon plus grand, les largeurs des sépales seraient pour la plupart entre 2.7 et 3cm pour les deux espèces. Nous voyons dans le dernier histogramme (la concaténation des deux précèdents histogrammes), un histogramme qui ressemble à une gaussienne et que la plupart des des largeurs se trouvent également entre 2.7 et 3cm. Nous pouvons imaginer qu'avec plus de données, les deux premiers histogrammes seraient identiques et le troisième identiques (à echelle plus grande).
 ```{r}
 library(magrittr)
@@ -103,18 +103,33 @@ ggplot2::ggplot(stressshift::stress_shift_permit, ggplot2::aes(x=0, fill=Syllabl
                  axis.ticks.x=ggplot2::element_blank()) +
   ggplot2::xlim(c(-1,1))
 ```
-Question 4a 
+##Question 4a 
 Nous voyons dans les deux premièrs histogrammes, que le nom "permit" en anglais à l'accent sur la première syllabe dans 35 cas tandis qu'il a l'accent sur la deuxième syllabe dans 11 cas seulement. Tandis que pour le verbe "permit" en anglais, il a l'accent dans seulement 1 cas sur la première syllabe et l'accent dans 45 cas sur la deuxième syllabe. Nous voyons dans la concaténation de ces deux là, verbe et nom confondues que l'accent apparait plus sur la deuxième syllabe (45+11 = 56) que sur la première syllabe (35+1 = 36). Maintenant obeservons nos hypothèses, l'hypothèse A est que "permit" en anglais à le même accent que se soit un nom ou un verbe, contrairement à l'hypothèse B qui dit que le verbe et le nom "permit" en anglais sont différents en terme d'accent. Dans cet exercice le deuxième histogramme ne permet pas de discuter par rapport aux hypothèses. En effet, imaginons que l'accent pour un nom soit à 100% des cas sur la première syllabe et pour un verbe 100% sur la deuxième syllabe, la concaténation des deux histogramme serait à 100% première syllabe, 100% deuxième syllabe. Alors qu'on pourrait conjecturer que la grammaire oblige à mettre l'accent sur la première syllabe pour un nom et sur la deuxième syllabe pour un verbe, donc on serait en faveur de l'hypothèse B qu'ils sont différent en terme d'accent, mais cette déduction serait faite que grâce au premier histogramme et non grâce au deuxième. 
 
-Question 4b 
+##Question 4b 
 Nous voyons que l'hypothèse B est plus acceptable. En effet, pour les verbes seulement un cas a l'accent sur la première syllabe pour 45 sur la deuxième syllabe, on peut donc conjecturer grâce à ces données que l'accent pour le verbe "permit" en anglais est exclusivement sur la deuxième syllabe et que l'autre cas est une erreur ou en tout cas pas du tout dans la majorité. Pour les noms la solution est déjà moins tranché, on remarque que pour 35 cas l'accent est sur la première syllabe et sur 11 cas l'accent est sur la deuxième. On voit que majoriterement l'accent est sur la première syllabe mais qu'il arrive quand même que l'accent soit sur la deuxième syllabe. On peut imaginer qu'avec le temps, les deux seront tout autant possibles. Mais même dans ce cas on ne peut pas dire qu'en anglais le nom et le verbe "permit" sont semblables en terme d'accent, alors que la grammaire anglaise oblige l'accent sur la première syllabe pour les verbes, même si elle est plus laxiste pour les noms.
 
 ## Exercise 5
-Question 5a
+```{r}
+library(magrittr)
+set.seed(1)
+ver_balanced <- languageR::ver %>%
+  dplyr::group_by(SemanticClass) %>%
+  dplyr::sample_n(198)
+set.seed(NULL)
+```
+
+```{r}
+ggplot2::ggplot(ver_balanced, ggplot2::aes(x=Frequency)) +
+  ggplot2::geom_histogram(fill="lightgrey", colour="black", binwidth=250) +
+  ggplot2::facet_grid(SemanticClass ~ .)
+```
+
+##Question 5a
 Il existe deux types de mesures dans ces histogrammes, nous avons les fréquences (des mesures) d'opacité et de transparence d'un préfixe (la sémantique), et le nombre de fois où se préfixe apparait dans les coprus utilisés (count).
 
-Question 5b
+##Question 5b
 On remarque que dans les deux histogrammes les fréquences sont faibles. En effet pour la plupart la fréquence d'opacité ou de transparence va de 0 à 250. Contrairement aux exercices précédents les données ne sont pas binaires, un mot peut être à la fois transparent et opaque. C'est pour ça que nous n'avons pas d'histogramme de concaténation des données car il est impossible de les concaténer.
 
-Question 5c
+##Question 5c
 L'hypothèse A me semble plus correct car on voit que les comptes de fréquences sont globalement regroupés au même endroit.
